@@ -35,21 +35,26 @@ import * as React from "react";
 import { useState } from "react";
 import styles from "./styles.module.scss" 
 
+function getProducedPercent(produced:any , inplan:any) {
+  let result = 100 + (100*(produced - inplan) / inplan)
+  return result.toFixed(0);
+}
+
 const columnsDef: TableColumnDefinition<Item>[] = [
   createTableColumn<Item>({
     columnId: "name",
     renderHeaderCell: () => <>Name</>,
     renderCell: (item: Item) => (
         <TableCellLayout
-        truncate
+        // truncate
         media={
           <Avatar
             name={item.name.label}
-            badge={{ status: item.name.status as PresenceBadgeStatus }}
+            // badge={{ status: item.name.status as PresenceBadgeStatus }}
           />
         }
       >
-        {item.cecode.label}
+        {item.name.label}
       </TableCellLayout>
      
     ),
@@ -63,7 +68,7 @@ const columnsDef: TableColumnDefinition<Item>[] = [
     renderHeaderCell: () => <>Cecode</>,
     renderCell: (item: Item) => (
       <TableCellLayout
-        truncate
+        // truncate
         // media={
         //   <Avatar
         //     name={item.cecode.label}
@@ -83,7 +88,7 @@ const columnsDef: TableColumnDefinition<Item>[] = [
     columnId: "produced",
     renderHeaderCell: () => <>Produced</>,
     renderCell: (item: Item) => (
-      <TableCellLayout truncate>{item.produced.label}</TableCellLayout>
+      <TableCellLayout style={{color: "green"}}>{item.produced.label}</TableCellLayout>
     ),
     compare: (a, b) => {
       return a.produced.timestamp - b.produced.timestamp;
@@ -93,7 +98,7 @@ const columnsDef: TableColumnDefinition<Item>[] = [
     columnId: "lacks",
     renderHeaderCell: () => <>Lacks</>,
     renderCell: (item: Item) => (
-      <TableCellLayout truncate media={item.lacks.icon}>
+      <TableCellLayout style={{color: "red"}}>
         {item.lacks.label}
       </TableCellLayout>
     ),
@@ -106,7 +111,7 @@ const columnsDef: TableColumnDefinition<Item>[] = [
     columnId: "inplan",
     renderHeaderCell: () => <>Inplan</>,
     renderCell: (item: Item) => (
-      <TableCellLayout truncate media={item.inplan.icon}>
+      <TableCellLayout media={item.inplan.icon}>
         {item.inplan.label}
       </TableCellLayout>
     ),
@@ -115,6 +120,20 @@ const columnsDef: TableColumnDefinition<Item>[] = [
       return a.inplan.label.localeCompare(b.inplan.label);
     },
   }),
+
+createTableColumn<Item>({
+  columnId: "producedPercent",
+  renderHeaderCell: () => <>%</>,
+  renderCell: (item: Item) => (
+    <TableCellLayout media={item.inplan.icon}>
+      %{getProducedPercent(item.produced.label, item.inplan.label)}
+    </TableCellLayout>
+  ),
+
+  compare: (a, b) => {
+    return Number(a.produced.label) - Number(b.produced.label);
+  },
+}),
 ];
 
 type FileCell = {
@@ -202,16 +221,19 @@ export const Sort = () => {
       },
       cecode: {
         minWidth: 170,
-        defaultWidth: 250,
+        defaultWidth: 300,
       },
       produced: {
-        minWidth: 220,
+        minWidth: 150,
       },
       lacks: {
-        minWidth: 220,
+        minWidth: 150,
       },
       inplan: {
-        minWidth: 220,
+        minWidth: 150,
+      },
+      producedPercent: {
+        minWidth: 150,
       },
     });
 
@@ -309,7 +331,7 @@ export const Sort = () => {
       <Table size="medium" sortable aria-label="Table with sort" ref={tableRef}>
         <TableHeader style={{fontSize: "2rem", color: "#0077c1", fontFamily: "Tahoma, sans-serif"}}>
           <TableRow>
-            {columns.map((column, index) => (
+            {columns.map((column) => (
               <Menu openOnContext key={column.columnId}>
                 <MenuTrigger>
                   <TableHeaderCell
