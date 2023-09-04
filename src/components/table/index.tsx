@@ -33,21 +33,23 @@ import {
 // } from "@fluentui/react-icons";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import styles from "./styles.module.scss" 
+import styles from "./styles.module.scss";
 // import * from "../../configs/firebase.js"
 import useAxios from "../../hooks/useAxios";
 
-function getProducedPercent(produced:any , inplan:any) {
-  let result = 100 + (100*(produced - inplan) / inplan)
+function getProducedPercent(produced: any, inplan: any) {
+  let result = 100 + (100 * (produced - inplan)) / inplan;
   return result.toFixed(0);
 }
 
 const columnsDef: TableColumnDefinition<Item>[] = [
   createTableColumn<Item>({
     columnId: "name",
-    renderHeaderCell: () => <span style={{color: "#0077c1", margin: "10px"}}>Name</span>,
+    renderHeaderCell: () => (
+      <span style={{ color: "#0077c1", margin: "10px" }}>Name</span>
+    ),
     renderCell: (item: Item) => (
-        <TableCellLayout
+      <TableCellLayout
         // truncate
         media={
           <Avatar
@@ -59,7 +61,6 @@ const columnsDef: TableColumnDefinition<Item>[] = [
       >
         {item.name.label}
       </TableCellLayout>
-     
     ),
 
     compare: (a, b) => {
@@ -68,16 +69,16 @@ const columnsDef: TableColumnDefinition<Item>[] = [
   }),
   createTableColumn<Item>({
     columnId: "cecode",
-    renderHeaderCell: () => <span style={{color: "#0077c1"}}>CE code</span>,
+    renderHeaderCell: () => <span style={{ color: "#0077c1" }}>CE code</span>,
     renderCell: (item: Item) => (
       <TableCellLayout
-        // truncate
-        // media={
-        //   <Avatar
-        //     name={item.cecode.label}
-        //     badge={{ status: item.cecode.status as PresenceBadgeStatus }}
-        //   />
-        // }
+      // truncate
+      // media={
+      //   <Avatar
+      //     name={item.cecode.label}
+      //     badge={{ status: item.cecode.status as PresenceBadgeStatus }}
+      //   />
+      // }
       >
         {item.cecode.label}
       </TableCellLayout>
@@ -89,9 +90,11 @@ const columnsDef: TableColumnDefinition<Item>[] = [
   }),
   createTableColumn<Item>({
     columnId: "produced",
-    renderHeaderCell: () => <span style={{color: "#0077c1"}}>Produced</span>,
+    renderHeaderCell: () => <span style={{ color: "#0077c1" }}>Produced</span>,
     renderCell: (item: Item) => (
-      <TableCellLayout style={{color: "green" }}>{item.produced.label}</TableCellLayout>
+      <TableCellLayout style={{ color: "green" }}>
+        {item.produced.label}
+      </TableCellLayout>
     ),
     compare: (a, b) => {
       return Number(a.produced.label) - Number(b.produced.label);
@@ -99,10 +102,10 @@ const columnsDef: TableColumnDefinition<Item>[] = [
   }),
   createTableColumn<Item>({
     columnId: "lacks",
-    renderHeaderCell: () => <span style={{color: "#0077c1"}}>Lacks</span>,
+    renderHeaderCell: () => <span style={{ color: "#0077c1" }}>Lacks</span>,
     renderCell: (item: Item) => (
-      <TableCellLayout style={{color: "red"}}>
-        {Number(item.inplan.label)- Number(item.produced.label)}
+      <TableCellLayout style={{ color: "red" }}>
+        {Number(item.inplan.label) - Number(item.produced.label)}
       </TableCellLayout>
     ),
 
@@ -112,12 +115,10 @@ const columnsDef: TableColumnDefinition<Item>[] = [
   }),
   createTableColumn<Item>({
     columnId: "inplan",
-    renderHeaderCell: () => <span style={{color: "#0077c1"}}>Inplan</span>,
+    renderHeaderCell: () => <span style={{ color: "#0077c1" }}>Inplan</span>,
     renderCell: (item: Item) => (
       // <TableCellLayout media={item.inplan.icon}>
-      <TableCellLayout>
-        {item.inplan.label}
-      </TableCellLayout>
+      <TableCellLayout>{item.inplan.label}</TableCellLayout>
     ),
 
     compare: (a, b) => {
@@ -125,19 +126,19 @@ const columnsDef: TableColumnDefinition<Item>[] = [
     },
   }),
 
-createTableColumn<Item>({
-  columnId: "producedPercent",
-  renderHeaderCell: () => <span style={{color: "#0077c1"}}>%</span>,
-  renderCell: (item: Item) => (
-    <TableCellLayout >
-      {getProducedPercent(item.produced.label, item.inplan.label)}%
-    </TableCellLayout>
-  ),
+  createTableColumn<Item>({
+    columnId: "producedPercent",
+    renderHeaderCell: () => <span style={{ color: "#0077c1" }}>%</span>,
+    renderCell: (item: Item) => (
+      <TableCellLayout>
+        {getProducedPercent(item.produced.label, item.inplan.label)}%
+      </TableCellLayout>
+    ),
 
-  compare: (a, b) => {
-    return Number(a.produced.label) - Number(b.produced.label);
-  },
-}),
+    compare: (a, b) => {
+      return Number(a.produced.label) - Number(b.produced.label);
+    },
+  }),
 ];
 
 type NameCell = {
@@ -147,12 +148,12 @@ type NameCell = {
 type ProducedCell = {
   label: string;
   timestamp: number;
-}
+};
 
 type InPlanCell = {
   label: string;
 
-  status?: PresenceBadgeStatus;
+  status?: any;
 };
 
 type LackCell = {
@@ -172,47 +173,47 @@ type Item = {
 };
 
 const items: Item[] = [
-  {
-    name: { label: "Thermion XP50 Pro"},
-    cecode: { label: "00.20178" },
-    produced: { label: "56", timestamp: 4 },
-    lacks: {
-      label: "744",
-    },
-    inplan: { label: "800" },
-  },
-  {
-    // name: { label: "Thermion LRF XQ50 Pro", icon: <FolderRegular /> },
-    name: { label: "Thermion LRF XQ50 Pro" },
-    cecode: { label: "00.45098" },
-    produced: { label: "123", timestamp: 2 },
-    lacks: {
-      label: "677",
-    },
-    inplan: { label: "800" },
-  },
-  {
-    name: { label: "Thermion DXP55" },
-    cecode: { label: "00.23017"},
-    produced: { label: "145", timestamp: 3 },
-    lacks: {
-      label: "655",
-    },
-    inplan: { label: "800" },
-  },
-  {
-    name: { label: "Talion XG38"},
-    cecode: { label: "00.11012"},
-    produced: { label: "223", timestamp: 1 },
-    lacks: {
-      label: "577",
-    },
-    inplan: { label: "800" },
-  },
+  // {
+  //   name: { label: "Thermion XP50 Pro" },
+  //   cecode: { label: "00.20178" },
+  //   produced: { label: "56", timestamp: 4 },
+  //   lacks: {
+  //     label: "744",
+  //   },
+  //   inplan: { label: "800" },
+  // },
+  // {
+  //   // name: { label: "Thermion LRF XQ50 Pro", icon: <FolderRegular /> },
+  //   name: { label: "Thermion LRF XQ50 Pro" },
+  //   cecode: { label: "00.45098" },
+  //   produced: { label: "123", timestamp: 2 },
+  //   lacks: {
+  //     label: "677",
+  //   },
+  //   inplan: { label: "800" },
+  // },
+  // {
+  //   name: { label: "Thermion DXP55" },
+  //   cecode: { label: "00.23017" },
+  //   produced: { label: "145", timestamp: 3 },
+  //   lacks: {
+  //     label: "655",
+  //   },
+  //   inplan: { label: "800" },
+  // },
+  // {
+  //   name: { label: "Talion XG38" },
+  //   cecode: { label: "00.11012" },
+  //   produced: { label: "223", timestamp: 1 },
+  //   lacks: {
+  //     label: "577",
+  //   },
+  //   inplan: { label: "800" },
+  // },
 ];
 
 export const Sort = () => {
-  const [data, setData] = useState <Item[]>(items);
+const [data, setData] = useState<Item[]>(items);
   const [columns] =
     useState<TableColumnDefinition<Item>[]>(columnsDef);
   const [columnSizingOptions, setColumnSizingOptions] =
@@ -222,7 +223,7 @@ export const Sort = () => {
         minWidth: 250,
       },
       cecode: {
-        minWidth:200,
+        minWidth: 200,
         defaultWidth: 200,
       },
       produced: {
@@ -240,65 +241,60 @@ export const Sort = () => {
       },
     });
 
-  //   const { response, loading, error } = useAxios({
-  //     method: 'get',
-  //     headers: JSON.stringify({ accept: '*/*' }),
-  //     body: JSON.stringify({
-  //         userId: 1,
-  //         id: 19392,
-  //         title: 'title',
-  //         body: 'Sample text',
-  //     }),
-  // });
+  const [loading, error, plan] = useAxios(
+    "https://pulsar-a051b-default-rtdb.europe-west1.firebasedatabase.app/plan_data.json?auth=sRB7jdjPFoz38yQ9339pUHK0ID33f8t45K5UiK7Q",
+    "get",
+    null
+  );
 
+//  const [data, setData] = useState([]);
 
+  //   const removeColumn = (index: number) => {
+  //     setColumns([...columns.slice(0, index), ...columns.slice(index + 1)]);
+  //   };
 
-//   const removeColumn = (index: number) => {
-//     setColumns([...columns.slice(0, index), ...columns.slice(index + 1)]);
-//   };
+  //   const addColumn = () => {
+  //     const currentColumnIds = columns.map(({ columnId }) => columnId);
+  //     const missingColumnIndex = columnsDef.findIndex(
+  //       ({ columnId }) => !currentColumnIds.includes(columnId)
+  //     );
+  //     if (missingColumnIndex !== -1) {
+  //       const missingColumn = columnsDef[missingColumnIndex];
+  //       setColumns((state) => [
+  //         ...state.slice(0, missingColumnIndex),
+  //         missingColumn,
+  //         ...state.slice(missingColumnIndex),
+  //       ]);
+  //     }
+  //   };
 
-//   const addColumn = () => {
-//     const currentColumnIds = columns.map(({ columnId }) => columnId);
-//     const missingColumnIndex = columnsDef.findIndex(
-//       ({ columnId }) => !currentColumnIds.includes(columnId)
-//     );
-//     if (missingColumnIndex !== -1) {
-//       const missingColumn = columnsDef[missingColumnIndex];
-//       setColumns((state) => [
-//         ...state.slice(0, missingColumnIndex),
-//         missingColumn,
-//         ...state.slice(missingColumnIndex),
-//       ]);
-//     }
-//   };
+  //   const onWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     let newWidth = parseInt(e.target.value, 10);
+  //     if (Number.isNaN(newWidth)) {
+  //       newWidth = 0;
+  //     }
+  //     setColumnSizingOptions((state) => ({
+  //       ...state,
+  //       file: {
+  //         ...state.file,
+  //         defaultWidth: newWidth,
+  //       },
+  //     }));
+  //   };
 
-//   const onWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     let newWidth = parseInt(e.target.value, 10);
-//     if (Number.isNaN(newWidth)) {
-//       newWidth = 0;
-//     }
-//     setColumnSizingOptions((state) => ({
-//       ...state,
-//       file: {
-//         ...state.file,
-//         defaultWidth: newWidth,
-//       },
-//     }));
-//   };
-
-//   const onMinWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     let newMinWidth = parseInt(e.target.value, 10);
-//     if (Number.isNaN(newMinWidth)) {
-//       newMinWidth = 0;
-//     }
-//     setColumnSizingOptions((state) => ({
-//       ...state,
-//       name: {
-//         ...state.name,
-//         minWidth: newMinWidth,
-//       },
-//     }));
-//   };
+  //   const onMinWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     let newMinWidth = parseInt(e.target.value, 10);
+  //     if (Number.isNaN(newMinWidth)) {
+  //       newMinWidth = 0;
+  //     }
+  //     setColumnSizingOptions((state) => ({
+  //       ...state,
+  //       name: {
+  //         ...state.name,
+  //         minWidth: newMinWidth,
+  //       },
+  //     }));
+  //   };
 
   const onColumnResize = React.useCallback(
     (_: any, { columnId, width }: any) => {
@@ -340,32 +336,37 @@ export const Sort = () => {
 
   const rows = sort(getRows());
 
-//   const inputId = useId("first-column");
+  //   const inputId = useId("first-column");
 
-const device: Item = {
-  name: { label: "Digex C50" },
-  cecode: { label: "00.21543" },
-  produced: { label: "312", timestamp: 5 },
-  lacks: {
-    label: "488",
-  },
-  inplan: { label: "800" },
-}
+  const device: Item = {
+    name: { label: "Digex C50" },
+    cecode: { label: "00.21543" },
+    produced: { label: "312", timestamp: 5 },
+    lacks: {
+      label: "488",
+    },
+    inplan: { label: "800" },
+  };
 
-
-useEffect(() => {
-  setData(prevData => [...prevData, device]);
-  // console.log(data);
-
-  // console.log(response);
-  // console.log(loading);
-  // console.log(error);
-}, []);
+  useEffect(() => {
+    // setData(prevData => [...prevData, device]);
+    // console.log(data);
+    if (plan !== null) {
+      // const test:any =  Object.values(plan);
+      setData(plan)
+      console.log(plan);
+      console.log(loading);
+      console.log(error);
+      // console.log
+    }
+  }, [plan]);
 
   return (
     <>
       <Table size="medium" sortable aria-label="Table with sort" ref={tableRef}>
-        <TableHeader style={{fontSize: "2.2rem", fontFamily: "Tahoma, sans-serif"}}>
+        <TableHeader
+          style={{ fontSize: "2.2rem", fontFamily: "Tahoma, sans-serif" }}
+        >
           <TableRow>
             {columns.map((column) => (
               <Menu openOnContext key={column.columnId}>
@@ -376,7 +377,6 @@ useEffect(() => {
                     {...headerSortProps(column.columnId)}
                   >
                     {column.renderHeaderCell()}
-   
                   </TableHeaderCell>
                 </MenuTrigger>
                 <MenuPopover>

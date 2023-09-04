@@ -30,7 +30,7 @@ export const FirebaseData: FC = () => {
 
 axios.get('https://pulsar-a051b-default-rtdb.europe-west1.firebasedatabase.app/plan_data.json?auth=sRB7jdjPFoz38yQ9339pUHK0ID33f8t45K5UiK7Q')
 .then((response) => {
-  console.log(response.data)
+  // console.log(response.data)
 });
 
   return <></>;
