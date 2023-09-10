@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import CurrentDateTime from "../CurrentDateTime";
 
 export const Header = () => {
   return (
@@ -11,11 +12,10 @@ export const Header = () => {
           </a>
 
           <div id={styles.navbar_menu} >
+
             <ul className={styles.navbar_links}>
-              <li className={styles.navbar_item}>
-                <a className={styles.navbar_link} href="/blog">
-                  Login
-                </a>
+            <li className={styles.navbar_item}>
+                <CurrentDateTime/>
               </li>
               <li className={styles.navbar_item}>
                 <a className={styles.navbar_link} href="/contact">

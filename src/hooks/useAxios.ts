@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import axios, { Method } from "axios";
 
 /**
@@ -9,34 +9,49 @@ const useAxios = (
   url: string,
   method: Method,
   body: any
-): [boolean, string | null, any] => {
+): [boolean, string | null, any, Dispatch<SetStateAction<number>>] => {
   const [loading, setLoading] = useState<boolean>(false);
   const [plan, setPlan] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [refreshInterval, setRefreshInterval] = useState(0);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios({
+        url: url,
+        method: method,
+        data: body,
+      });
+      
+      const data = Object.values(response?.data);
+      setPlan(data);
+    } catch (error: any) {
+      setError(error);
+    } finally {
+      setLoading(false);
+      // setRefreshInterval(10000);
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
-    const fetchData = async () => {
-      try {
-        const response = await axios({
-          url: url,
-          method: method,
-          data: body,
-        });
-        
-        const data = Object.values(response?.data);
-        setPlan(data);
-      } catch (error: any) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData().then((r) => r);
   }, [url]);
 
-  return [loading, error, plan];
+useEffect(() => {
+  if (refreshInterval && refreshInterval > 0) {
+    const interval = setInterval(() => { fetchData().then((r) => r) }, refreshInterval);
+    console.log("Interval UseEffect invoked");
+    // setPlan(plan);
+    return () => clearInterval(interval);
+  }
+}, [refreshInterval]);
+
+return [loading, error, plan, setRefreshInterval];
 };
 
 export default useAxios;
+
+// function fetchData(): void {
+//   throw new Error("Function not implemented.");
+// }

@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css"
-import Header from "./components/header";
-import { Sort } from "./components/table";
+import Header from "./components/Header";
+import { PlanTable } from "./components/PlanTable";
 import { FirebaseData } from "./components/FirebaseData";
+import CurrentDateTime from "./components/CurrentDateTime";
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       <Header />
       <div style={{paddingTop: "100px"}}></div>
       <div className="container">
-        <Sort />
-        <FirebaseData/>
+        <PlanTable />
+        {/* <FirebaseData/> */}
+        {/* <CurrentDateTime/> */}
       </div>
     </>
   )
