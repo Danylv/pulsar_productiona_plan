@@ -2,8 +2,10 @@ import React from "react";
 import "./App.css"
 import Header from "./components/Header";
 import { PlanTable } from "./components/PlanTable";
-import { FirebaseData } from "./components/FirebaseData";
-import CurrentDateTime from "./components/CurrentDateTime";
+import { GraphicsPage } from "./pages/GraphicsPage"
+import { Routes, Route } from 'react-router-dom';
+// import { FirebaseData } from "./components/FirebaseData";
+// import CurrentDateTime from "./components/CurrentDateTime";
 
 function App() {
   return (
@@ -11,9 +13,12 @@ function App() {
       <Header />
       <div style={{paddingTop: "100px"}}></div>
       <div className="container">
-        <PlanTable />
+        {/* <PlanTable /> */}
         {/* <FirebaseData/> */}
-        {/* <CurrentDateTime/> */}
+        <Routes>
+          <Route path="/" element={<PlanTable />} />
+          <Route path="/graphics" element={<GraphicsPage />} />
+       </Routes>
       </div>
     </>
   )

@@ -16,10 +16,10 @@ import {
     let allProducedValue = 0;
     let allInPlanValue = 0;
     items.map((item) => 
-      allInPlanValue = Number(allInPlanValue) + Number(item.inplan.label)
+      allInPlanValue = Number(allInPlanValue) + Number(item.inplan)
      );
      items.map((item) => 
-     allProducedValue = Number(allProducedValue) + Number(item.produced.label)
+     allProducedValue = Number(allProducedValue) + Number(item.produced)
     );
 
     let result = getProducedPercent(allProducedValue, allInPlanValue)
@@ -28,35 +28,17 @@ import {
     )
   }
 
-  type NameCell = {
-    label: string;
-  };
-  
-  type ProducedCell = {
-    label: string;
-    timestamp: number;
-  };
-  
-  type InPlanCell = {
-    label: string;
-  
-    // status?: any;
-  };
-  
   // type LackCell = {
   //   label: number;
   // };
-  
-  type CeCodeCell = {
-    label: string;
-  };
-  
+
   export type Item = {
-    name: NameCell;
-    cecode: CeCodeCell;
-    produced: ProducedCell;
+    name: string;
+    cecode: string;
+    produced: number;
+    timestamp?: number;
     lacks?: any;
-    inplan: InPlanCell;
+    inplan: number;
   };
 
 export const columnsDef: TableColumnDefinition<Item>[] = [
@@ -73,12 +55,12 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
         //   />
         // }
         >
-          {item.cecode.label}
+          {item.cecode}
         </TableCellLayout>
       ),
   
       compare: (a, b) => {
-        return a.cecode.label.localeCompare(b.cecode.label);
+        return a.cecode.localeCompare(b.cecode);
       },
     }),
 
@@ -98,24 +80,25 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
           //   />
           // }
         >
-          {item.name.label}
+          {item.name}
         </TableCellLayout>
       ),
   
       compare: (a, b) => {
-        return a.name.label.localeCompare(b.name.label);
+        return a.name.localeCompare(b.name);
       },
+      
     }),
     createTableColumn<Item>({
       columnId: "produced",
       renderHeaderCell: () => <span style={{ color: "#0077c1" }}>Produced</span>,
       renderCell: (item: Item) => (
         <TableCellLayout style={{ color: "green" }}>
-          {item.produced.label}
+          {item.produced}
         </TableCellLayout>
       ),
       compare: (a, b) => {
-        return Number(a.produced.label) - Number(b.produced.label);
+        return Number(a.produced) - Number(b.produced);
       },
     }),
     createTableColumn<Item>({
@@ -123,13 +106,13 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
       renderHeaderCell: () => <span style={{ color: "#0077c1" }}>Lacks</span>,
       renderCell: (item: Item) => (
         <TableCellLayout style={{ color: "red" }}>
-          {Number(item.inplan.label) - Number(item.produced.label)}
+          {Number(item.inplan) - Number(item.produced)}
         </TableCellLayout>
       ),
   
       compare: (a, b) => {
-        const aLackValue = Number(a.inplan.label) - Number(a.produced.label);
-        const bLackValue = Number(b.inplan.label) - Number(b.produced.label);
+        const aLackValue = Number(a.inplan) - Number(a.produced);
+        const bLackValue = Number(b.inplan) - Number(b.produced);
         // return Number(a.lacks?.label) - Number(b.lacks?.label);
         return aLackValue - bLackValue;
       },
@@ -139,11 +122,11 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
       renderHeaderCell: () => <span style={{ color: "#0077c1" }}>Inplan</span>,
       renderCell: (item: Item) => (
         // <TableCellLayout media={item.inplan.icon}>
-        <TableCellLayout>{item.inplan.label}</TableCellLayout>
+        <TableCellLayout>{item.inplan}</TableCellLayout>
       ),
   
       compare: (a, b) => {
-        return a.inplan.label.localeCompare(b.inplan.label);
+        return Number(a.inplan) - Number(b.inplan);
       },
     }),
   
@@ -152,42 +135,41 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
       renderHeaderCell: () => <span style={{ color: "#0077c1" }}>%</span>,
       renderCell: (item: Item) => (
         <TableCellLayout>
-          {getProducedPercent(item.produced.label, item.inplan.label)}%
+          {getProducedPercent(item.produced, item.inplan)}%
         </TableCellLayout>
       ),
   
       compare: (a, b) => {
-        const aProducedPercentValue = Number(getProducedPercent(a.produced.label, a.inplan.label));
-        const bProducedPercentValue = Number(getProducedPercent(b.produced.label, b.inplan.label));
+        const aProducedPercentValue = Number(getProducedPercent(a.produced, a.inplan));
+        const bProducedPercentValue = Number(getProducedPercent(b.produced, b.inplan));
         return aProducedPercentValue - bProducedPercentValue;
       },
     }),
   ];
 
   export const items: Item[] = [
-    // {
-    //   name: { label: "Thermion XP50 Pro" },
-    //   cecode: { label: "00.20178" },
-    //   produced: { label: "56", timestamp: 4 },
-    //   inplan: { label: "800" },
-    // },
-    // {
-    //   // name: { label: "Thermion LRF XQ50 Pro", icon: <FolderRegular /> },
-    //   name: { label: "Thermion LRF XQ50 Pro" },
-    //   cecode: { label: "00.45098" },
-    //   produced: { label: "123", timestamp: 2 },
-    //   inplan: { label: "800" },
-    // },
-    // {
-    //   name: { label: "Thermion DXP55" },
-    //   cecode: { label: "00.23017" },
-    //   produced: { label: "145", timestamp: 3 },
-    //   inplan: { label: "800" },
-    // },
-    // {
-    //   name: { label: "Talion XG38" },
-    //   cecode: { label: "00.11012" },
-    //   produced: { label: "223", timestamp: 1 },
-    //   inplan: { label: "800" },
-    // },
+    {
+      name:"Thermion XP50 Pro",
+      cecode: "00.20178",
+      produced: 56, timestamp: 4,
+      inplan: 800,
+    },
+    {
+      name: "APS5 Battery Unit",
+      cecode: "11.13124",
+      produced: 988, timestamp: 7,
+      inplan: 1550,
+    },
+    {
+      name: "Thermion DXP55",
+      cecode: "00.23017",
+      produced: 145, timestamp: 3,
+      inplan: 800,
+    },
+    {
+      name: "Talion XG38",
+      cecode: "00.11012",
+      produced: 223, timestamp: 1,
+      inplan: 800,
+    },
   ];

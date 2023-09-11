@@ -193,7 +193,7 @@ export const PlanTable = () => {
       // getOverallProducedPercent(plan);
       // setRefreshInterval(10000);
       setOverallProducedPercent(Number(getOverallProducedPercent(plan)));
-      setRefreshInterval(10000);
+      setRefreshInterval(100000);
     }
   }, [plan]);
 
@@ -248,7 +248,7 @@ export const PlanTable = () => {
           </TableHeader>
           <TableBody>
             {rows.map(({ item }) => (
-              <TableRow key={item.name.label}>
+              <TableRow key={item.name}>
                 {columns.map((column) => (
                   <TableCell
                     key={column.columnId}
