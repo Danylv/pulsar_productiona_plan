@@ -79,7 +79,7 @@ export const PlanTable = () => {
     });
 
   const [loading, error, plan, setRefreshInterval] = useAxios(
-    "https://pulsar-a051b-default-rtdb.europe-west1.firebasedatabase.app/plan_data.json?auth=sRB7jdjPFoz38yQ9339pUHK0ID33f8t45K5UiK7Q",
+    "http://localhost:5000/",
     "get",
     null
   );
@@ -261,8 +261,8 @@ export const PlanTable = () => {
             ))}
           </TableBody>
         </Table>
-        <div style={{display: "flex", fontSize: "1.5rem", flexDirection: "row", justifyContent: "space-between", marginLeft: "20px", marginRight: "60px", marginTop: "20px"}}>
-                  <div><span style={{fontFamily: "Tahoma, sans-serif", color: "#0077c1"}}>Updated:</span></div>
+        <div style={{display: "flex", fontSize: "1.5rem", flexDirection: "row", justifyContent: "space-between", marginLeft: "20px", marginRight: "60px", marginTop: "20px", marginBottom: "20px"}}>
+                  <div><span style={{fontFamily: "Tahoma, sans-serif", color: "#0077c1"}}>Updates every 5 minutes</span></div>
                   <div><span style={{fontFamily: "Tahoma, sans-serif", color: "#0077c1"}}>Overall: {overallProducedPercent}%</span></div>
         </div>
       </>

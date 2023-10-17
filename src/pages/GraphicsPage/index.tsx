@@ -79,7 +79,8 @@ export const GraphicsPage = () => {
     );
   } else {
     return (
-
+      <div style={{ width: "100%", height: 400 }}>     
+<ResponsiveContainer>
         <BarChart
           width={1200}
           height={300}
@@ -102,6 +103,8 @@ export const GraphicsPage = () => {
           <Bar dataKey="inplan" fill="#8884d8" />
           <Bar dataKey="produced" fill="#82ca9d" />
         </BarChart>
+        </ResponsiveContainer>
+        </div>
     );
   }
 };
