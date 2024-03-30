@@ -14,3 +14,5 @@ Need only NodeJS platform to start this React app and expressJS backend for it.
 Installation:
 1. <b>npm install</b>
 2. <b>npm start</b>
+
+<img src='https://github.com/Danylv/pulsar_productiona_plan/blob/main/screenshot.jpg?raw=true' width='100%'></img>
