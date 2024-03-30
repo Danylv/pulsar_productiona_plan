@@ -2,8 +2,6 @@ import {
     TableColumnDefinition,
     TableCellLayout,
     createTableColumn,
-    // useId,
-    // PresenceBadgeStatus,
     Avatar,
   } from "@fluentui/react-components";
 
@@ -28,10 +26,6 @@ import {
     )
   }
 
-  // type LackCell = {
-  //   label: number;
-  // };
-
   export type Item = {
     name: string;
     cecode: string;
@@ -47,13 +41,6 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
       renderHeaderCell: () => <span style={{ color: "#0077c1" }}>CE code</span>,
       renderCell: (item: Item) => (
         <TableCellLayout
-        // truncate
-        // media={
-        //   <Avatar
-        //     name={item.cecode.label}
-        //     badge={{ status: item.cecode.status as PresenceBadgeStatus }}
-        //   />
-        // }
         >
           {item.cecode}
         </TableCellLayout>
@@ -71,14 +58,6 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
       ),
       renderCell: (item: Item) => (
         <TableCellLayout
-          // truncate
-          // media={
-          //   <Avatar
-          //     color="royal-blue"
-          //     name={item.name.label}
-          //     // badge={{ status: item.name.status as PresenceBadgeStatus }}
-          //   />
-          // }
         >
           {item.name}
         </TableCellLayout>
@@ -113,7 +92,6 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
       compare: (a, b) => {
         const aLackValue = Number(a.inplan) - Number(a.produced);
         const bLackValue = Number(b.inplan) - Number(b.produced);
-        // return Number(a.lacks?.label) - Number(b.lacks?.label);
         return aLackValue - bLackValue;
       },
     }),
@@ -121,7 +99,6 @@ export const columnsDef: TableColumnDefinition<Item>[] = [
       columnId: "inplan",
       renderHeaderCell: () => <span style={{ color: "#0077c1" }}>Inplan</span>,
       renderCell: (item: Item) => (
-        // <TableCellLayout media={item.inplan.icon}>
         <TableCellLayout>{item.inplan}</TableCellLayout>
       ),
   

@@ -51,7 +51,3 @@ return [loading, error, plan, setRefreshInterval];
 };
 
 export default useAxios;
-
-// function fetchData(): void {
-//   throw new Error("Function not implemented.");
-// }

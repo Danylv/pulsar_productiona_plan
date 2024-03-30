@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Header />
-      <div style={{paddingTop: "100px"}}></div>
+      <div style={{paddingTop: "30px"}}></div>
       <div className="container">
         {/* <PlanTable /> */}
         {/* <FirebaseData/> */}

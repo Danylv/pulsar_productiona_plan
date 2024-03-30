@@ -4,37 +4,21 @@ import {
   Table,
   TableBody,
   TableCell,
-  // TableCellLayout,
   TableHeader,
   TableHeaderCell,
   TableRow,
-  // createTableColumn,
-  // useId,
   useTableColumnSizing_unstable,
   useTableFeatures,
   useTableSort,
   TableColumnSizingOptions,
-  // PresenceBadgeStatus,
-  // Avatar,
   Menu,
   MenuItem,
   MenuList,
   MenuPopover,
   MenuTrigger,
 } from "@fluentui/react-components";
-// import {
-//   DocumentRegular,
-//   EditRegular,
-//   FolderRegular,
-//   OpenRegular,
-//   VideoRegular,
-//   DocumentPdfRegular,
-//   PeopleRegular,
-// } from "@fluentui/react-icons";
 import * as React from "react";
 import { useEffect, useState } from "react";
-// import styles from "./styles.module.scss";
-// import * from "../../configs/firebase.js"
 import useAxios from "../../hooks/useAxios";
 import {DefaultSpinner} from "../Spinner";
 import "./config";
@@ -84,55 +68,6 @@ export const PlanTable = () => {
     null
   );
 
-  //  const [data, setData] = useState([]);
-
-  //   const removeColumn = (index: number) => {
-  //     setColumns([...columns.slice(0, index), ...columns.slice(index + 1)]);
-  //   };
-
-  //   const addColumn = () => {
-  //     const currentColumnIds = columns.map(({ columnId }) => columnId);
-  //     const missingColumnIndex = columnsDef.findIndex(
-  //       ({ columnId }) => !currentColumnIds.includes(columnId)
-  //     );
-  //     if (missingColumnIndex !== -1) {
-  //       const missingColumn = columnsDef[missingColumnIndex];
-  //       setColumns((state) => [
-  //         ...state.slice(0, missingColumnIndex),
-  //         missingColumn,
-  //         ...state.slice(missingColumnIndex),
-  //       ]);
-  //     }
-  //   };
-
-  //   const onWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     let newWidth = parseInt(e.target.value, 10);
-  //     if (Number.isNaN(newWidth)) {
-  //       newWidth = 0;
-  //     }
-  //     setColumnSizingOptions((state) => ({
-  //       ...state,
-  //       file: {
-  //         ...state.file,
-  //         defaultWidth: newWidth,
-  //       },
-  //     }));
-  //   };
-
-  //   const onMinWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     let newMinWidth = parseInt(e.target.value, 10);
-  //     if (Number.isNaN(newMinWidth)) {
-  //       newMinWidth = 0;
-  //     }
-  //     setColumnSizingOptions((state) => ({
-  //       ...state,
-  //       name: {
-  //         ...state.name,
-  //         minWidth: newMinWidth,
-  //       },
-  //     }));
-  //   };
-
   const onColumnResize = React.useCallback(
     (_: any, { columnId, width }: any) => {
       setColumnSizingOptions((state) => ({
@@ -177,21 +112,9 @@ export const PlanTable = () => {
 
   const rows = sort(getRows());
 
-  //   const inputId = useId("first-column");
-
   useEffect(() => {
-    // setData(prevData => [...prevData, device]);
-    // console.log(data);
     if (plan !== null) {
-      // const test:any =  Object.values(plan);
-
       setData(plan);
-      // console.log(plan);
-      // console.log(loading);
-      // console.log(error);
-      // console.log("New data arrived");
-      // getOverallProducedPercent(plan);
-      // setRefreshInterval(10000);
       setOverallProducedPercent(Number(getOverallProducedPercent(plan)));
       setRefreshInterval(100000);
     }

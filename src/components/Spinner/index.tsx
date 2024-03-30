@@ -9,7 +9,7 @@ import {
 
 const useStyles = makeStyles({
   container: {
-    "> div": { marginTop: "25%" },
+    "> div": { marginTop: "10%" },
   },
 
   // Inverted Spinners are meant as overlays (e.g., over an image or similar)
