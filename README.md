@@ -7,7 +7,10 @@ In this case i work with very old database standarts, which keep information in 
 Here is expressJS backend for this web project https://github.com/Danylv/express_backend made by me too.
 (DBF file not included)
 
-Need only NodeJS platform to start this React app and expressJS backend for it!
+TypeScript and Axios addinionally used for more comfortable development.
+
+Need only NodeJS platform to start this React app and expressJS backend for it.
 
 Installation:
-[create-react-app.dev](https://create-react-app.dev/) - helps you if you dont know any of React library
+1. <b>npm install</b>
+2. <b>npm start</b>
