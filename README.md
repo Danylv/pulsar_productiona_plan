@@ -10,5 +10,4 @@ Here is expressJS backend for this web project https://github.com/Danylv/express
 Need only NodeJS platform to start this React app and expressJS backend for it!
 
 Installation:
-1. <b>npm install</b>
-2. <b>npm start</b>
+[create-react-app.dev](https://create-react-app.dev/) - helps you if you dont know any of React library
