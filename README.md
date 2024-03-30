@@ -1,4 +1,4 @@
-# Simple React App to check amout of produced equipment
+# Simple React App to check amout of produced equipment on facility
 
 Simple and handy table with minimal sortings, some visual settings for user, made whith FluenUI. It helps take data from database (warehouse working point) and via API based on expressJS, show fresh and actual production department results in real time format.
 
